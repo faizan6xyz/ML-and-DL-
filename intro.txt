@@ -1,0 +1,8 @@
+Module	                                Purpose
+sklearn.linear_model	                Regression
+sklearn.tree	                        Decision Trees
+sklearn.ensemble	                    Random Forest, Boosting
+sklearn.cluster	                        Clustering
+sklearn.metrics	                        Evaluation
+sklearn.preprocessing	                Scaling/Encoding
+sklearn.model_selection	                Train-test split, CV
