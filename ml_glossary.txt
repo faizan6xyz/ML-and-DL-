@@ -1,0 +1,1068 @@
+================================================================================
+        MACHINE LEARNING — COMPLETE GLOSSARY
+        Terms | Definitions | Uses | Advantages | Disadvantages
+================================================================================
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 1 — CORE CONCEPTS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+MACHINE LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A branch of AI where systems learn patterns from data and improve
+                their performance on tasks without being explicitly programmed.
+Uses          : Spam detection, recommendation systems, fraud detection,
+                image recognition, language translation, medical diagnosis.
+Advantages    : Automates complex pattern recognition; improves over time;
+                scales to large datasets; handles tasks too complex to hand-code.
+Disadvantages : Requires large amounts of data; can be a "black box";
+                computationally expensive; prone to bias from training data.
+
+────────────────────────────────────────────────────────────────────────────────
+SUPERVISED LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Learning from labeled data — each training example has an input
+                and a known correct output (label).
+Uses          : Classification (spam/not spam), regression (house price prediction),
+                object detection, sentiment analysis.
+Advantages    : Clear evaluation metrics; well-understood algorithms;
+                high accuracy when labels are reliable.
+Disadvantages : Requires expensive labeled data; poor generalization if labels
+                are noisy or biased; doesn't learn from unlabeled data.
+
+────────────────────────────────────────────────────────────────────────────────
+UNSUPERVISED LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Learning from unlabeled data by discovering hidden structure,
+                patterns, or groupings in the data.
+Uses          : Customer segmentation, anomaly detection, dimensionality reduction,
+                topic modeling, generative models.
+Advantages    : No labeling cost; can discover unexpected patterns;
+                works with vast amounts of raw data.
+Disadvantages : Results are harder to evaluate; clusters may not be meaningful;
+                subjective interpretation required.
+
+────────────────────────────────────────────────────────────────────────────────
+SEMI-SUPERVISED LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Uses a small amount of labeled data combined with a large amount
+                of unlabeled data during training.
+Uses          : Medical image labeling (few expert labels), web content
+                classification, speech recognition.
+Advantages    : Reduces labeling cost while leveraging unlabeled data;
+                often outperforms purely supervised models with limited labels.
+Disadvantages : More complex training; can propagate errors from incorrect
+                pseudo-labels; theoretical guarantees weaker.
+
+────────────────────────────────────────────────────────────────────────────────
+REINFORCEMENT LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : An agent learns by interacting with an environment, receiving
+                rewards for good actions and penalties for bad ones.
+Uses          : Game playing (AlphaGo, chess), robotics, autonomous driving,
+                resource management, recommendation systems.
+Advantages    : Can learn complex sequential strategies; doesn't need labeled data;
+                discovers non-obvious solutions.
+Disadvantages : Extremely data/compute hungry; unstable training; reward
+                function design is difficult; safety risks in real-world deployment.
+
+────────────────────────────────────────────────────────────────────────────────
+SELF-SUPERVISED LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A form of unsupervised learning where labels are automatically
+                generated from the data itself (e.g., predicting masked words).
+Uses          : Large language models (GPT, BERT), image representation learning
+                (SimCLR, MAE), audio representation.
+Advantages    : Leverages massive unlabeled data; produces powerful general
+                representations; no human annotation needed.
+Disadvantages : Pre-training is computationally expensive; downstream fine-tuning
+                still often requires labeled data.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 2 — MODEL FUNDAMENTALS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+FEATURE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : An individual measurable property or characteristic of the data
+                used as input to a model (also called a variable or attribute).
+Uses          : Age, income, pixel value, word frequency — any input variable.
+Advantages    : Well-chosen features dramatically improve model performance.
+Disadvantages : Irrelevant features add noise; high-dimensional features cause
+                the "curse of dimensionality".
+
+────────────────────────────────────────────────────────────────────────────────
+FEATURE ENGINEERING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The process of using domain knowledge to create, transform,
+                or select features to improve model performance.
+Uses          : Creating interaction terms, log-transforming skewed variables,
+                extracting date components, binning continuous variables.
+Advantages    : Can greatly boost accuracy; injects domain knowledge;
+                can reduce model complexity needed.
+Disadvantages : Time-consuming; requires domain expertise; manual process
+                (deep learning partially automates this).
+
+────────────────────────────────────────────────────────────────────────────────
+LABEL / TARGET
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The output variable the model is trained to predict.
+                Also called the dependent variable, response, or ground truth.
+Uses          : Class labels in classification; continuous values in regression.
+Advantages    : Provides a clear learning signal for supervised models.
+Disadvantages : Expensive to obtain; can be noisy or biased.
+
+────────────────────────────────────────────────────────────────────────────────
+TRAINING SET
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The subset of data used to fit (train) the model's parameters.
+Uses          : Teaching the model patterns during optimization.
+Advantages    : Larger training sets generally produce better models.
+Disadvantages : Model may overfit to the training set if not regularized.
+
+────────────────────────────────────────────────────────────────────────────────
+VALIDATION SET
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A held-out subset used during training to tune hyperparameters
+                and monitor for overfitting — not used in final evaluation.
+Uses          : Hyperparameter selection, early stopping, model comparison.
+Advantages    : Provides unbiased estimates during development.
+Disadvantages : Reduces training data; single split can be high variance.
+
+────────────────────────────────────────────────────────────────────────────────
+TEST SET
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A completely held-out dataset used only once for final evaluation
+                of a fully trained model. Never used to make any training decisions.
+Uses          : Final performance reporting.
+Advantages    : Gives an unbiased estimate of real-world performance.
+Disadvantages : If "peeked at" for decisions, it becomes contaminated.
+
+────────────────────────────────────────────────────────────────────────────────
+OVERFITTING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : When a model learns the training data too well — including noise
+                and outliers — so it performs poorly on unseen data.
+Uses          : Identifying when a model is too complex for the data.
+Advantages    : Awareness of overfitting guides regularization choices.
+Disadvantages : Model fails to generalize; low test performance despite
+                high training accuracy.
+
+────────────────────────────────────────────────────────────────────────────────
+UNDERFITTING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : When a model is too simple to capture the underlying patterns,
+                resulting in poor performance on both train and test data.
+Uses          : Diagnosing when a model needs more complexity or features.
+Advantages    : Underfitting is easy to detect (low training accuracy).
+Disadvantages : Poor performance across the board; wasted data.
+
+────────────────────────────────────────────────────────────────────────────────
+BIAS (in models)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Error from wrong assumptions in the learning algorithm;
+                causes a model to miss relevant patterns (underfitting).
+Uses          : Part of the bias-variance tradeoff analysis.
+Advantages    : High-bias models are simple, fast, and interpretable.
+Disadvantages : Systematically wrong predictions; cannot capture complex patterns.
+
+────────────────────────────────────────────────────────────────────────────────
+VARIANCE (in models)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Error from sensitivity to small fluctuations in training data;
+                the model changes drastically with different training sets.
+Uses          : Part of the bias-variance tradeoff analysis.
+Advantages    : Low-variance models generalize well.
+Disadvantages : High-variance models overfit; unstable predictions.
+
+────────────────────────────────────────────────────────────────────────────────
+BIAS-VARIANCE TRADEOFF
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The tension between a model being too simple (high bias) and
+                too complex (high variance). Minimizing total error requires balance.
+Uses          : Guiding model complexity and regularization decisions.
+Advantages    : Provides a theoretical framework for diagnosing model problems.
+Disadvantages : In practice, exact bias and variance are unobservable directly.
+
+────────────────────────────────────────────────────────────────────────────────
+PARAMETERS
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Internal variables of a model learned from data during training
+                (e.g., weights in neural networks, coefficients in linear regression).
+Uses          : Define what a model has learned; used to make predictions.
+Advantages    : Automatically optimized; represent learned knowledge.
+Disadvantages : Too many parameters → overfitting; too few → underfitting.
+
+────────────────────────────────────────────────────────────────────────────────
+HYPERPARAMETERS
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Configuration settings set before training that control the
+                learning process (e.g., learning rate, number of trees, depth).
+Uses          : Tuning model performance via grid search, random search, or Bayesian
+                optimization.
+Advantages    : Can significantly improve performance when tuned correctly.
+Disadvantages : Time-consuming to tune; no single universal best setting;
+                risk of overfitting to the validation set.
+
+────────────────────────────────────────────────────────────────────────────────
+LOSS FUNCTION (Cost Function)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A mathematical function measuring the difference between predicted
+                and actual values; the quantity the model minimizes during training.
+Uses          : MSE for regression, cross-entropy for classification,
+                Huber loss for robust regression.
+Advantages    : Directly encodes what the model should optimize.
+Disadvantages : Wrong choice of loss can lead to a model optimizing the wrong thing;
+                non-convex losses can have local minima.
+
+────────────────────────────────────────────────────────────────────────────────
+GRADIENT DESCENT
+────────────────────────────────────────────────────────────────────────────────
+Definition    : An optimization algorithm that iteratively adjusts parameters
+                in the direction that reduces the loss function (the negative gradient).
+Uses          : Training virtually all neural networks and many other ML models.
+Advantages    : General-purpose; works well with backpropagation; scalable.
+Disadvantages : Can get stuck in local minima; sensitive to learning rate;
+                vanilla GD is slow on large datasets.
+
+────────────────────────────────────────────────────────────────────────────────
+STOCHASTIC GRADIENT DESCENT (SGD)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A variant of gradient descent that updates parameters using
+                one randomly selected sample (or mini-batch) at a time.
+Uses          : Training large-scale neural networks.
+Advantages    : Much faster per iteration; noise can help escape local minima.
+Disadvantages : Noisy updates; higher variance; requires learning rate tuning.
+
+────────────────────────────────────────────────────────────────────────────────
+LEARNING RATE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A hyperparameter controlling the step size during gradient descent
+                parameter updates.
+Uses          : All gradient-based optimization.
+Advantages    : Controls speed vs stability tradeoff of training.
+Disadvantages : Too high → divergence; too low → slow convergence or local minima.
+
+────────────────────────────────────────────────────────────────────────────────
+EPOCH
+────────────────────────────────────────────────────────────────────────────────
+Definition    : One complete pass through the entire training dataset during training.
+Uses          : Counting training progress in neural networks.
+Advantages    : More epochs allow the model to see more iterations of the data.
+Disadvantages : Too many epochs leads to overfitting.
+
+────────────────────────────────────────────────────────────────────────────────
+BATCH SIZE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The number of training samples processed together before
+                updating model parameters.
+Uses          : Mini-batch gradient descent in neural network training.
+Advantages    : Larger batches → stable gradients; smaller batches → regularization
+                effect and faster initial learning.
+Disadvantages : Large batch can reduce generalization; small batch is noisy
+                and slow per epoch.
+
+────────────────────────────────────────────────────────────────────────────────
+REGULARIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Techniques that add a penalty for model complexity to reduce
+                overfitting and improve generalization.
+Uses          : L1/L2 in linear models, dropout in neural networks, weight decay.
+Advantages    : Reduces overfitting; can do implicit feature selection (L1).
+Disadvantages : Can cause underfitting if too strong; adds a hyperparameter to tune.
+
+────────────────────────────────────────────────────────────────────────────────
+L1 REGULARIZATION (Lasso)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Adds the sum of absolute values of coefficients as a penalty
+                to the loss function. Produces sparse solutions.
+Uses          : Feature selection in linear models; when many features are irrelevant.
+Advantages    : Drives irrelevant coefficients to exactly zero (automatic feature selection).
+Disadvantages : Non-differentiable at zero; can be unstable when features are correlated.
+
+────────────────────────────────────────────────────────────────────────────────
+L2 REGULARIZATION (Ridge)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Adds the sum of squared coefficients as a penalty. Shrinks
+                coefficients toward zero without making them exactly zero.
+Uses          : When all features are potentially relevant; collinear data.
+Advantages    : Stable solution; handles correlated features well; differentiable.
+Disadvantages : Doesn't perform feature selection; all features retained.
+
+────────────────────────────────────────────────────────────────────────────────
+DROPOUT
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A regularization technique for neural networks where random
+                neurons are disabled (set to zero) during each training step.
+Uses          : Training deep neural networks to prevent co-adaptation.
+Advantages    : Very effective regularizer; acts like ensemble of networks.
+Disadvantages : Increases training time; not suitable for small networks;
+                disabled at inference time (different train/test behavior).
+
+────────────────────────────────────────────────────────────────────────────────
+NORMALIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Rescaling features to a standard range (e.g., [0,1]) so no
+                single feature dominates due to its scale.
+Uses          : Preprocessing before distance-based algorithms, neural networks.
+Advantages    : Speeds convergence; improves stability; required for many algorithms.
+Disadvantages : Sensitive to outliers (MinMax scaling); test data must use
+                train set statistics.
+
+────────────────────────────────────────────────────────────────────────────────
+STANDARDIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Transforms features to have zero mean and unit variance (z-score).
+Uses          : SVM, PCA, logistic regression, neural networks.
+Advantages    : Less sensitive to outliers than normalization; works for many
+                algorithms that assume zero-mean input.
+Disadvantages : Loses interpretability of original scale; outliers still influence.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 3 — ALGORITHMS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+LINEAR REGRESSION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Models the relationship between features and a continuous target
+                as a linear combination of weights.
+Uses          : House price prediction, sales forecasting, trend analysis.
+Advantages    : Simple; interpretable; fast; no hyperparameters.
+Disadvantages : Assumes linearity; sensitive to outliers; can't capture complex
+                nonlinear relationships.
+
+────────────────────────────────────────────────────────────────────────────────
+LOGISTIC REGRESSION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Linear model for binary/multi-class classification using the
+                logistic (sigmoid) function to output probabilities.
+Uses          : Medical diagnosis, spam classification, credit scoring.
+Advantages    : Probabilistic outputs; interpretable; fast; works well linearly
+                separable problems.
+Disadvantages : Can't model nonlinear boundaries (without feature engineering);
+                poor with highly correlated features.
+
+────────────────────────────────────────────────────────────────────────────────
+DECISION TREE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A tree-structured model that splits data by feature thresholds
+                at each node to minimize impurity (Gini or entropy).
+Uses          : Classification and regression; medical decision support;
+                explainable AI.
+Advantages    : Highly interpretable; handles mixed data types; no scaling needed.
+Disadvantages : Prone to overfitting; unstable (small data changes → different tree);
+                axis-aligned splits only.
+
+────────────────────────────────────────────────────────────────────────────────
+RANDOM FOREST
+────────────────────────────────────────────────────────────────────────────────
+Definition    : An ensemble of decision trees, each trained on a bootstrap
+                sample and a random feature subset; predictions are aggregated.
+Uses          : Classification and regression on tabular data; feature importance
+                ranking; handling missing data.
+Advantages    : Robust to overfitting; handles high-dimensional data; provides
+                feature importances; minimal hyperparameter tuning needed.
+Disadvantages : Less interpretable than single tree; slow on very large datasets;
+                poor on sequential/time-series data.
+
+────────────────────────────────────────────────────────────────────────────────
+GRADIENT BOOSTING (GBM)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Sequentially builds trees where each tree corrects the residual
+                errors of the previous ensemble.
+Uses          : Tabular data competitions; ranking; click-through prediction.
+Advantages    : Often best performance on tabular data; flexible loss functions.
+Disadvantages : Slow training; many hyperparameters; prone to overfitting without
+                careful tuning.
+
+────────────────────────────────────────────────────────────────────────────────
+SUPPORT VECTOR MACHINE (SVM)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Finds the hyperplane that maximizes the margin between classes;
+                uses kernel trick for nonlinear problems.
+Uses          : Text classification, image classification, bioinformatics.
+Advantages    : Effective in high-dimensional spaces; works with small datasets;
+                mathematically rigorous.
+Disadvantages : Slow on large datasets; requires feature scaling; hard to interpret;
+                kernel and C selection critical.
+
+────────────────────────────────────────────────────────────────────────────────
+K-NEAREST NEIGHBORS (KNN)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Classifies a point by majority vote among its K nearest neighbors
+                in feature space (or averages for regression).
+Uses          : Recommendation systems, anomaly detection, simple classifiers.
+Advantages    : No training phase; naturally handles multi-class; intuitive.
+Disadvantages : Slow at prediction time (O(N)); sensitive to irrelevant features
+                and scale; poor on high-dimensional data.
+
+────────────────────────────────────────────────────────────────────────────────
+NAIVE BAYES
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Probabilistic classifier based on Bayes' theorem, assuming
+                all features are conditionally independent given the class.
+Uses          : Spam filtering, text classification, sentiment analysis.
+Advantages    : Very fast; works well with small data; robust to irrelevant features.
+Disadvantages : "Naive" independence assumption rarely holds; can't capture
+                feature interactions; poor probability calibration.
+
+────────────────────────────────────────────────────────────────────────────────
+K-MEANS CLUSTERING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Partitions data into K clusters by iteratively assigning points
+                to the nearest centroid and recomputing centroids.
+Uses          : Customer segmentation, image compression, document clustering.
+Advantages    : Simple; fast; scales to large datasets.
+Disadvantages : Must specify K; sensitive to initialization and outliers;
+                assumes spherical, equal-size clusters.
+
+────────────────────────────────────────────────────────────────────────────────
+DBSCAN
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Density-based clustering that groups points in high-density regions
+                and marks low-density points as outliers (noise).
+Uses          : Geospatial clustering, anomaly detection, arbitrary-shape clusters.
+Advantages    : No need to specify K; detects outliers; handles arbitrary shapes.
+Disadvantages : Sensitive to eps and min_samples; struggles with varying density;
+                poor in high dimensions.
+
+────────────────────────────────────────────────────────────────────────────────
+PRINCIPAL COMPONENT ANALYSIS (PCA)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Linear dimensionality reduction that projects data onto orthogonal
+                axes (principal components) of maximum variance.
+Uses          : Visualization, noise reduction, preprocessing before ML,
+                multicollinearity removal.
+Advantages    : Removes correlated features; reduces overfitting; fast.
+Disadvantages : Linear only; components are hard to interpret; data must be scaled;
+                loses some information.
+
+────────────────────────────────────────────────────────────────────────────────
+NEURAL NETWORK (Artificial Neural Network)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A computational model loosely inspired by the brain, consisting
+                of layers of interconnected nodes (neurons) with learned weights.
+Uses          : Image recognition, NLP, speech, tabular data, generative models.
+Advantages    : Universal function approximator; learns features automatically;
+                state-of-the-art on many tasks.
+Disadvantages : Requires large data; computationally expensive; black-box; many
+                hyperparameters; prone to overfitting without regularization.
+
+────────────────────────────────────────────────────────────────────────────────
+CONVOLUTIONAL NEURAL NETWORK (CNN)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A neural network using convolutional layers that apply learnable
+                filters across input, capturing spatial/local patterns.
+Uses          : Image classification, object detection, video analysis, medical imaging.
+Advantages    : Parameter efficient via weight sharing; translation invariant;
+                automatically learns hierarchical features.
+Disadvantages : Requires large labeled datasets; computationally heavy;
+                less effective on non-grid data.
+
+────────────────────────────────────────────────────────────────────────────────
+RECURRENT NEURAL NETWORK (RNN)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A neural network with loops allowing information to persist,
+                making it suited for sequential data.
+Uses          : Time series forecasting, language modeling, speech recognition.
+Advantages    : Handles sequences of variable length; shared weights over time.
+Disadvantages : Vanishing/exploding gradient problem; slow to train; largely
+                replaced by Transformers for many NLP tasks.
+
+────────────────────────────────────────────────────────────────────────────────
+LONG SHORT-TERM MEMORY (LSTM)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A special RNN architecture with gates (input, forget, output)
+                allowing it to learn long-range dependencies.
+Uses          : Text generation, machine translation, time series forecasting.
+Advantages    : Solves vanishing gradient problem; captures long-range dependencies.
+Disadvantages : Slow to train; computationally expensive; complex architecture;
+                largely superseded by Transformers.
+
+────────────────────────────────────────────────────────────────────────────────
+TRANSFORMER
+────────────────────────────────────────────────────────────────────────────────
+Definition    : An attention-based neural architecture that processes all tokens
+                in parallel using self-attention rather than sequential computation.
+Uses          : LLMs (GPT, BERT), machine translation, image recognition (ViT),
+                code generation.
+Advantages    : Parallelizable; captures long-range dependencies; state-of-the-art
+                across NLP, vision, audio.
+Disadvantages : Quadratic memory/compute w.r.t. sequence length; huge data and
+                compute requirements; black-box.
+
+────────────────────────────────────────────────────────────────────────────────
+ATTENTION MECHANISM
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A mechanism allowing the model to dynamically weight the
+                importance of different parts of the input when producing output.
+Uses          : Core of Transformers; seq2seq models; image captioning.
+Advantages    : Captures relevant context regardless of distance; interpretable
+                attention weights.
+Disadvantages : Quadratic complexity; adds model complexity.
+
+────────────────────────────────────────────────────────────────────────────────
+AUTOENCODER
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A neural network trained to compress input into a low-dimensional
+                latent representation (encoder) and reconstruct it (decoder).
+Uses          : Dimensionality reduction, anomaly detection, denoising, generative
+                modeling.
+Advantages    : Unsupervised; learns compact representations; good for anomaly
+                detection.
+Disadvantages : Can just memorize data; latent space may not be smooth or
+                interpretable; reconstruction quality varies.
+
+────────────────────────────────────────────────────────────────────────────────
+GENERATIVE ADVERSARIAL NETWORK (GAN)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A framework where a generator creates fake data and a discriminator
+                tries to distinguish real from fake; they train adversarially.
+Uses          : Image synthesis, data augmentation, style transfer, super-resolution.
+Advantages    : Generates highly realistic data; no explicit density estimation.
+Disadvantages : Training instability; mode collapse; difficult to evaluate;
+                requires careful hyperparameter tuning.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 4 — EVALUATION METRICS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+ACCURACY
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Fraction of correctly classified samples out of total samples.
+               Accuracy = (TP + TN) / (TP + TN + FP + FN)
+Uses          : General classification evaluation on balanced datasets.
+Advantages    : Simple; easy to interpret.
+Disadvantages : Misleading on imbalanced datasets (predicting all majority class
+               gives high accuracy).
+
+────────────────────────────────────────────────────────────────────────────────
+PRECISION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Of all predicted positive cases, what fraction are actually positive.
+               Precision = TP / (TP + FP)
+Uses          : When the cost of false positives is high (e.g., spam filter,
+               cancer diagnosis tools).
+Advantages    : Focuses on quality of positive predictions.
+Disadvantages : Ignores false negatives; can be gamed by making few positive predictions.
+
+────────────────────────────────────────────────────────────────────────────────
+RECALL (Sensitivity / True Positive Rate)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Of all actual positive cases, what fraction did the model detect.
+               Recall = TP / (TP + FN)
+Uses          : When missing positives is costly (e.g., disease screening, fraud).
+Advantages    : Measures coverage of positive class.
+Disadvantages : Ignores false positives; can be gamed by predicting everything positive.
+
+────────────────────────────────────────────────────────────────────────────────
+F1-SCORE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Harmonic mean of precision and recall.
+               F1 = 2 × (Precision × Recall) / (Precision + Recall)
+Uses          : Imbalanced classification problems; when both precision and recall
+               matter.
+Advantages    : Single metric balancing precision and recall.
+Disadvantages : Equal weight to precision and recall (F-beta for different weights);
+               doesn't account for true negatives.
+
+────────────────────────────────────────────────────────────────────────────────
+ROC-AUC
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Area under the ROC curve — plots True Positive Rate vs False
+               Positive Rate at different classification thresholds.
+Uses          : Binary classification; comparing models threshold-independently.
+Advantages    : Threshold-independent; works with imbalanced classes; 0.5 = random.
+Disadvantages : Can be optimistic on heavily imbalanced data; PR-AUC sometimes
+               more informative for imbalanced problems.
+
+────────────────────────────────────────────────────────────────────────────────
+MEAN SQUARED ERROR (MSE)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Average of squared differences between predictions and actuals.
+               MSE = (1/n) Σ (y_pred - y_true)²
+Uses          : Regression model evaluation.
+Advantages    : Differentiable; penalizes large errors more (squared).
+Disadvantages : Sensitive to outliers; not in original units of target.
+
+────────────────────────────────────────────────────────────────────────────────
+MEAN ABSOLUTE ERROR (MAE)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Average of absolute differences between predictions and actuals.
+               MAE = (1/n) Σ |y_pred - y_true|
+Uses          : Regression; when outliers should not dominate.
+Advantages    : Robust to outliers; interpretable in original units.
+Disadvantages : Non-differentiable at zero; doesn't penalize large errors as much.
+
+────────────────────────────────────────────────────────────────────────────────
+R² SCORE (Coefficient of Determination)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Proportion of variance in the target explained by the model.
+               R² = 1 - SS_res / SS_tot; 1 = perfect, 0 = baseline mean model.
+Uses          : Regression model evaluation; comparing models.
+Advantages    : Scale-independent; intuitive interpretation.
+Disadvantages : Can increase with more features even if they add noise (use Adjusted R²);
+               negative for very poor models.
+
+────────────────────────────────────────────────────────────────────────────────
+CONFUSION MATRIX
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A table showing TP, TN, FP, FN counts for classification results.
+Uses          : Understanding error types; class-level performance analysis.
+Advantages    : Full breakdown of prediction errors by class.
+Disadvantages : Hard to read for many classes; doesn't give a single number.
+
+────────────────────────────────────────────────────────────────────────────────
+CROSS-VALIDATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Technique where data is split into K folds and the model is
+               trained K times, each time using a different fold as validation.
+Uses          : Model evaluation with limited data; hyperparameter tuning.
+Advantages    : Gives more reliable performance estimate than single split;
+               uses all data for both training and validation.
+Disadvantages : K× more computation; folds must be independent (leakage risk).
+
+────────────────────────────────────────────────────────────────────────────────
+LOG LOSS (Cross-Entropy Loss)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Measures performance of a classification model whose output is
+               a probability between 0 and 1.
+               LogLoss = -1/n Σ [y log(p) + (1-y) log(1-p)]
+Uses          : Evaluating probabilistic classifiers.
+Advantages    : Penalizes confident wrong predictions heavily; proper scoring rule.
+Disadvantages : Unbounded; sensitive to near-zero probabilities.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 5 — ADVANCED CONCEPTS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+ENSEMBLE LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Combining multiple models to produce a prediction better than
+               any individual model.
+Uses          : Competitions (Kaggle); production ML systems for robustness.
+Advantages    : Reduces variance and bias; robust to individual model failures.
+Disadvantages : Less interpretable; higher computational cost; complexity in
+               deployment.
+
+────────────────────────────────────────────────────────────────────────────────
+BAGGING (Bootstrap Aggregating)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Train multiple models on different bootstrap samples of the data,
+               then average (regression) or vote (classification).
+Uses          : Random Forest is the most famous bagging method.
+Advantages    : Reduces variance; parallelizable; reduces overfitting.
+Disadvantages : Doesn't reduce bias; requires more compute; averaging reduces
+               interpretability.
+
+────────────────────────────────────────────────────────────────────────────────
+BOOSTING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Sequentially trains weak learners where each focuses more on
+               examples the previous ones got wrong.
+Uses          : XGBoost, LightGBM, AdaBoost for tabular data competitions.
+Advantages    : Reduces both bias and variance; excellent on tabular data.
+Disadvantages : Sequential (not parallelizable per round); prone to overfitting
+               on noisy data; many hyperparameters.
+
+────────────────────────────────────────────────────────────────────────────────
+STACKING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Trains a meta-model on the out-of-fold predictions of base models
+               to learn how to best combine them.
+Uses          : Kaggle competitions; production ensembles.
+Advantages    : Can capture complementary strengths of different models.
+Disadvantages : Complex to implement correctly; risk of data leakage; longer
+               training pipeline.
+
+────────────────────────────────────────────────────────────────────────────────
+TRANSFER LEARNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Using a model pre-trained on one task as a starting point for
+               a different (usually related) task.
+Uses          : Fine-tuning BERT for text classification; using ImageNet-pretrained
+               CNN for medical imaging.
+Advantages    : Works with less labeled data; faster training; better performance.
+Disadvantages : May not transfer well if domains differ greatly; pre-trained model
+               biases carry over.
+
+────────────────────────────────────────────────────────────────────────────────
+FINE-TUNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Continuing training of a pre-trained model on a new task-specific
+               dataset, often with a smaller learning rate.
+Uses          : Adapting LLMs to specific tasks, domain-specific image models.
+Advantages    : Achieves high performance with little task-specific data.
+Disadvantages : Catastrophic forgetting; risk of overfitting small datasets.
+
+────────────────────────────────────────────────────────────────────────────────
+DATA AUGMENTATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Artificially increasing training data size by applying
+               label-preserving transformations (flipping, cropping, noise).
+Uses          : Image classification; NLP (back-translation, synonym replacement).
+Advantages    : Reduces overfitting; improves generalization; no new data needed.
+Disadvantages : Augmentations must be task-appropriate; can introduce artifacts
+               if done incorrectly.
+
+────────────────────────────────────────────────────────────────────────────────
+IMBALANCED DATA
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A dataset where class distribution is highly uneven
+               (e.g., 99% negative, 1% positive).
+Uses          : Fraud detection, rare disease diagnosis, defect detection.
+Advantages    : Awareness drives better metric selection and resampling strategies.
+Disadvantages : Models default to predicting majority class; accuracy is misleading;
+               requires special handling (SMOTE, class weighting).
+
+────────────────────────────────────────────────────────────────────────────────
+SMOTE (Synthetic Minority Oversampling Technique)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Generates synthetic minority class samples by interpolating
+               between existing minority class examples.
+Uses          : Handling class imbalance in classification.
+Advantages    : More effective than simple oversampling; adds diversity.
+Disadvantages : Can introduce noise; synthetic samples may not be realistic;
+               doesn't help if minority class is inherently ambiguous.
+
+────────────────────────────────────────────────────────────────────────────────
+CURSE OF DIMENSIONALITY
+────────────────────────────────────────────────────────────────────────────────
+Definition    : As the number of features increases, the data becomes increasingly
+               sparse, making distance-based algorithms ineffective.
+Uses          : Motivates dimensionality reduction; feature selection.
+Advantages    : Understanding it guides better feature engineering.
+Disadvantages : Many ML algorithms degrade with high dimensionality; exponentially
+               more data needed.
+
+────────────────────────────────────────────────────────────────────────────────
+FEATURE IMPORTANCE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A score indicating how much each feature contributes to a
+               model's predictions.
+Uses          : Model interpretation; feature selection; debugging.
+Advantages    : Improves explainability; helps identify irrelevant features.
+Disadvantages : Tree-based importance can be biased toward high-cardinality
+               features; doesn't show direction of effect.
+
+────────────────────────────────────────────────────────────────────────────────
+SHAP VALUES
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A game-theoretic approach to explaining individual predictions
+               by attributing contribution of each feature for that prediction.
+Uses          : Model explainability; debugging; regulatory compliance.
+Advantages    : Theoretically grounded; works for any model; shows direction +
+               magnitude; consistent and locally accurate.
+Disadvantages : Computationally expensive for large datasets; complex to implement
+               from scratch.
+
+────────────────────────────────────────────────────────────────────────────────
+EARLY STOPPING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Halting training when performance on a validation set stops
+               improving, to prevent overfitting.
+Uses          : Neural networks, gradient boosting (XGBoost, LightGBM).
+Advantages    : Free regularization; avoids overfitting; saves compute.
+Disadvantages : Requires a validation set; may stop prematurely; sensitive to
+               patience hyperparameter.
+
+────────────────────────────────────────────────────────────────────────────────
+BATCH NORMALIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Normalizes the activations of a layer across the mini-batch,
+               reducing internal covariate shift.
+Uses          : Accelerating training of deep neural networks.
+Advantages    : Allows higher learning rates; acts as regularizer; reduces
+               sensitivity to initialization.
+Disadvantages : Different behavior at train vs inference; problematic for small
+               batches; not ideal for RNNs.
+
+────────────────────────────────────────────────────────────────────────────────
+LATENT SPACE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A compressed, lower-dimensional representation of data learned
+               by a model (e.g., encoder output in autoencoder or VAE).
+Uses          : Generative models, similarity search, interpolation between data points.
+Advantages    : Captures semantic structure; enables generation and manipulation.
+Disadvantages : Hard to interpret; structure depends heavily on training objective.
+
+────────────────────────────────────────────────────────────────────────────────
+EMBEDDINGS
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Dense vector representations of discrete objects (words, users,
+               items) learned so similar objects are close in vector space.
+Uses          : Word2Vec, item recommendation, knowledge graphs, NLP.
+Advantages    : Capture semantic relationships; compact; work as features.
+Disadvantages : Fixed-length representation; hard to interpret; require large
+               corpus to train well.
+
+────────────────────────────────────────────────────────────────────────────────
+HYPERPARAMETER TUNING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The process of searching for the best combination of hyperparameters
+               using grid search, random search, or Bayesian optimization.
+Uses          : Optimizing any ML model.
+Advantages    : Can significantly boost performance; systematic.
+Disadvantages : Computationally expensive; risk of overfitting to validation set
+               (need test set reserved).
+
+────────────────────────────────────────────────────────────────────────────────
+BAYESIAN OPTIMIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Uses a probabilistic surrogate model of the objective function
+               to select next hyperparameter points to evaluate intelligently.
+Uses          : Efficient hyperparameter tuning with expensive evaluations.
+Advantages    : Finds good parameters faster than grid/random search.
+Disadvantages : Complex to implement; overhead for cheap models; less parallelizable.
+
+────────────────────────────────────────────────────────────────────────────────
+DATA LEAKAGE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : When information from outside the training data (future or test
+               data) is inadvertently used during training, giving falsely
+               optimistic results.
+Uses          : Critical to avoid in preprocessing pipelines and feature engineering.
+Advantages    : Awareness helps build trustworthy pipelines.
+Disadvantages : Often subtle and hard to detect; leads to models that fail in
+               production.
+
+────────────────────────────────────────────────────────────────────────────────
+PIPELINE (ML)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A sequential chain of data preprocessing steps and a final
+               estimator bundled into a single object.
+Uses          : Prevents data leakage; simplifies deployment and cross-validation.
+Advantages    : Clean code; correct fit/transform handling; easy to serialize.
+Disadvantages : Debugging intermediate steps can be harder; complex custom
+               transformers increase complexity.
+
+────────────────────────────────────────────────────────────────────────────────
+ANOMALY DETECTION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Identifying rare events or observations that differ significantly
+               from the majority of the data.
+Uses          : Fraud detection, network intrusion, equipment fault detection.
+Advantages    : Doesn't require labeled anomalies; catches unknown patterns.
+Disadvantages : Hard to evaluate (rare ground truth); high false positive rates;
+               definition of "anomaly" is context-dependent.
+
+────────────────────────────────────────────────────────────────────────────────
+DIMENSIONALITY REDUCTION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Reducing the number of input features while preserving as much
+               useful information as possible.
+Uses          : Visualization, speeding up training, noise reduction.
+Advantages    : Reduces overfitting; speeds computation; enables visualization.
+Disadvantages : Information loss; reduced components may lose interpretability.
+
+────────────────────────────────────────────────────────────────────────────────
+ONE-HOT ENCODING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Representing a categorical variable with K levels as K binary
+               columns, each indicating presence of one category.
+Uses          : Feeding categorical features into linear models and neural networks.
+Advantages    : No ordinal assumption; works with any model.
+Disadvantages : High dimensionality for high-cardinality features; multicollinearity
+               (drop one column).
+
+────────────────────────────────────────────────────────────────────────────────
+GRADIENT VANISHING / EXPLODING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : In deep networks, gradients can become extremely small (vanishing)
+               or large (exploding) during backpropagation through many layers.
+Uses          : Motivates ReLU, LSTM, batch norm, gradient clipping, residual connections.
+Advantages    : Understanding it drives better architecture choices.
+Disadvantages : Cripples training of deep networks; training becomes unstable
+               or fails to converge.
+
+────────────────────────────────────────────────────────────────────────────────
+RESIDUAL CONNECTION (Skip Connection)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A shortcut connection that adds the input of a layer directly
+               to its output: output = F(x) + x.
+Uses          : ResNets for image recognition; Transformers; very deep networks.
+Advantages    : Alleviates vanishing gradients; enables training of very deep networks.
+Disadvantages : Increased memory; assumes input and output have the same dimensions
+               (or uses projection).
+
+────────────────────────────────────────────────────────────────────────────────
+ACTIVATION FUNCTION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A nonlinear function applied to neuron outputs to allow the
+               network to model complex, nonlinear relationships.
+Uses          : Every layer of a neural network.
+Advantages    : Enables universal approximation; different functions suit different tasks.
+Disadvantages : Poor choice causes vanishing gradients (sigmoid, tanh in deep nets).
+
+Common activations:
+  ReLU       : max(0, x). Fast; avoids vanishing gradient; can "die" (always 0).
+  Sigmoid    : 1/(1+e^-x). Outputs [0,1]; good for output layer binary classification.
+  Tanh       : (e^x-e^-x)/(e^x+e^-x). Outputs [-1,1]; zero-centered; still vanishes.
+  Softmax    : Normalizes outputs to sum to 1; used for multi-class output layer.
+  Leaky ReLU : max(0.01x, x). Fixes dying ReLU problem.
+  GELU       : Smooth approximation of ReLU; used in Transformers (BERT, GPT).
+
+────────────────────────────────────────────────────────────────────────────────
+MOMENTUM (Optimizer)
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Accumulates an exponentially decaying moving average of past
+               gradients to dampen oscillations and speed up convergence.
+Uses          : SGD with momentum, Adam optimizer.
+Advantages    : Faster convergence; escapes shallow local minima.
+Disadvantages : Adds a hyperparameter; can overshoot minimum.
+
+────────────────────────────────────────────────────────────────────────────────
+ADAM OPTIMIZER
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Adaptive optimizer combining momentum (1st moment) and RMSProp
+               (2nd moment) to give per-parameter adaptive learning rates.
+Uses          : Default optimizer for most deep learning tasks.
+Advantages    : Fast convergence; little tuning needed; handles sparse gradients.
+Disadvantages : Can generalize slightly worse than SGD with tuned momentum;
+               may converge to sharp minima.
+
+────────────────────────────────────────────────────────────────────────────────
+WEIGHT INITIALIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The strategy for setting initial values of model parameters
+               before training begins.
+Uses          : Affects training stability and convergence speed.
+Advantages    : Good initialization (Xavier, He) prevents vanishing/exploding
+               gradients at the start.
+Disadvantages : Poor initialization can completely stall training;
+               task and architecture dependent.
+
+────────────────────────────────────────────────────────────────────────────────
+SOFTMAX
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A function that converts a vector of raw scores (logits) into
+               a probability distribution that sums to 1.
+Uses          : Output layer of multi-class classification neural networks.
+Advantages    : Produces interpretable class probabilities.
+Disadvantages : Sensitive to outlier logit values; not suited to multi-label tasks.
+
+────────────────────────────────────────────────────────────────────────────────
+CONFUSION MATRIX TERMS
+────────────────────────────────────────────────────────────────────────────────
+TP (True Positive)   : Model correctly predicts positive class.
+TN (True Negative)   : Model correctly predicts negative class.
+FP (False Positive)  : Model incorrectly predicts positive (Type I error).
+FN (False Negative)  : Model incorrectly predicts negative (Type II error).
+
+────────────────────────────────────────────────────────────────────────────────
+BOOTSTRAP
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Sampling with replacement from a dataset to create new datasets
+               of the same size; used in Random Forest and statistical estimation.
+Uses          : Ensemble training; confidence interval estimation.
+Advantages    : Simple; powerful; makes use of all data.
+Disadvantages : Some samples repeated; out-of-bag samples smaller than test set.
+
+────────────────────────────────────────────────────────────────────────────────
+KERNEL TRICK
+────────────────────────────────────────────────────────────────────────────────
+Definition    : A method to implicitly map data to a higher-dimensional space
+               using kernel functions (K(x,y) = φ(x)·φ(y)) without explicitly
+               computing the transformation.
+Uses          : SVM with non-linear kernels (RBF, polynomial).
+Advantages    : Enables linear algorithms to model nonlinear boundaries efficiently.
+Disadvantages : Choosing the right kernel requires expertise; computationally
+               expensive for large datasets.
+
+────────────────────────────────────────────────────────────────────────────────
+INDUCTIVE BIAS
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The set of assumptions a learning algorithm makes to generalize
+               from training data to unseen data.
+Uses          : Every ML algorithm has one (e.g., linear models assume linearity;
+               KNN assumes local smoothness).
+Advantages    : Without it, generalization is impossible (No Free Lunch theorem).
+Disadvantages : Wrong inductive bias → systematically wrong predictions.
+
+────────────────────────────────────────────────────────────────────────────────
+NO FREE LUNCH THEOREM
+────────────────────────────────────────────────────────────────────────────────
+Definition    : No single algorithm performs best across all possible problems —
+               every algorithm has tradeoffs over the space of all tasks.
+Uses          : Justifies trying multiple algorithms and choosing based on data.
+Advantages    : Encourages empirical model comparison over theoretical preference.
+Disadvantages : Means there is no universal best algorithm; practitioners must
+               experiment.
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECTION 6 — PRACTICAL & DEPLOYMENT TERMS
+════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────
+MLOps
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Practices and tools for deploying, monitoring, and maintaining
+               ML models in production reliably and efficiently.
+Uses          : CI/CD for ML, model versioning, data drift monitoring, A/B testing.
+Advantages    : Reduces gap between research and production; improves reliability.
+Disadvantages : Complex tooling; requires DevOps expertise; initial setup overhead.
+
+────────────────────────────────────────────────────────────────────────────────
+MODEL DRIFT
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Degradation of model performance over time because the real-world
+               data distribution changes (concept drift or data drift).
+Uses          : Production monitoring systems.
+Advantages    : Awareness drives retraining pipelines.
+Disadvantages : Can be silent and hard to detect; requires continuous monitoring.
+
+────────────────────────────────────────────────────────────────────────────────
+INFERENCE
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Using a trained model to make predictions on new data (as opposed
+               to training).
+Uses          : Production deployment — the stage where the model serves users.
+Advantages    : Much faster and cheaper than training.
+Disadvantages : Requires model serving infrastructure; latency requirements
+               may limit model complexity.
+
+────────────────────────────────────────────────────────────────────────────────
+MODEL SERIALIZATION
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Saving a trained model to disk so it can be loaded and used later
+               without retraining (e.g., pickle, joblib, ONNX, SavedModel).
+Uses          : Deployment; sharing models; caching training results.
+Advantages    : Enables reuse; separates training from inference.
+Disadvantages : Version compatibility issues; security risks with pickle;
+               large file sizes for big models.
+
+────────────────────────────────────────────────────────────────────────────────
+A/B TESTING
+────────────────────────────────────────────────────────────────────────────────
+Definition    : Comparing two model versions in production by routing different
+               user segments to each and measuring outcomes.
+Uses          : Safe model rollout; validating improvements in real-world conditions.
+Advantages    : Real-world signal; statistically rigorous comparison.
+Disadvantages : Requires traffic; statistical significance needs sufficient samples;
+               interaction effects between variants.
+
+────────────────────────────────────────────────────────────────────────────────
+EXPLAINABILITY / INTERPRETABILITY
+────────────────────────────────────────────────────────────────────────────────
+Definition    : The degree to which a model's predictions can be understood and
+               explained to humans.
+Uses          : Regulatory compliance, debugging, building trust.
+Advantages    : Enables error diagnosis; required in high-stakes domains.
+Disadvantages : Most interpretable models (linear, trees) are less powerful;
+               complex models require post-hoc methods (SHAP, LIME).
+
+
+================================================================================
+END OF GLOSSARY — 80+ TERMS COVERED
+================================================================================
